@@ -1,0 +1,23 @@
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  margin: 3rem auto 5rem;
+  display: flex;
+  justify-content: center;
+}
+.playInterval{
+  margin-bottom: 2rem;
+}
+
+.userAnswer, .playInterval{
+  display: flex;
+  justify-content: center;
+}
+
+button[name=button] {
+  font-size: 16px;
+  margin: 5px;
+}
