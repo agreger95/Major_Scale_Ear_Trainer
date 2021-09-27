@@ -1,5 +1,5 @@
-
 let userScore = 0;
+let totalPlayed = 0;
 let rootNote = "C";
 let currentInterval = "";
 let cmajScale = {
@@ -13,26 +13,50 @@ let cmajScale = {
   8: "Octave_C"
 };
 
-function playSound(name){
+$(".newInterval").on("click", function() {
+  totalPlayed++;
+  newInterval();
+  playInterval(currentInterval);
+});
+
+$(".replayInterval").on("click", function() {
+  if (currentInterval != "") {
+    playInterval(currentInterval);
+  };
+});
+
+$(".btn").on("click", function() {
+  if (currentInterval != "") {
+    let userGuess = $(this).attr("id");
+    if(checkAnswer(userGuess)){
+      userScore++;
+      $("h2").text("Score: " + userScore + "/" + totalPlayed);
+    }
+    else{
+      $("h2").text("Score: " + userScore + "/" + totalPlayed);
+    }
+    currentInterval = "";
+  }
+})
+
+function playSound(name) {
   var audioSample = new Audio("public/sounds/" + name + ".m4a");
   audioSample.play();
 };
 
-function playInterval(interval){
+function playInterval(interval) {
   playSound(rootNote);
   setTimeout(() => playSound(cmajScale[interval]), 1500);
 }
 
-function newInterval(){
-  currentInterval = Math.floor(Math.random() * 7) + 2;
+function newInterval() {
+  currentInterval = Math.floor(Math.random() * 8) + 1;
 }
 
-function checkAnswer(){
-
+function checkAnswer(userGuess) {
+  if (userGuess == currentInterval) {
+    return true;
+  } else {
+    return false;
+  }
 };
-
-// TODO: Add event handler to play interval buttons
-// get random number from 1-7
-// play root note C then play new not based off of random randomNumber
-// check if user selected the right choice
-// display result to user
